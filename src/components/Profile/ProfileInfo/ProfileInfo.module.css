@@ -1,0 +1,10 @@
+.content_photo{
+    display: inline-block;
+    overflow: hidden;
+    max-width: 880px;
+    max-height: 250px;
+    border-radius: 5px;
+}
+.photo{
+    margin: 0 auto;
+}

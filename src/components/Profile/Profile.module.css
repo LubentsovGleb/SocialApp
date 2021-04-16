@@ -1,0 +1,18 @@
+
+.content{
+    position: relative;
+/* width: 100%; */
+    /* min-height: 500px; */
+    max-width: 880px;
+}
+.content_photo{
+    width: 100%;
+    display: inline-block;
+    overflow: hidden;
+    max-width: 880px;
+    max-height: 250px;
+    border-radius: 5px;
+}
+.photo{
+    margin: 0 auto;
+}

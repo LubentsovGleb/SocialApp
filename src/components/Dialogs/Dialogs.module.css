@@ -1,0 +1,36 @@
+.dialogs{
+    display: flex;
+    /* align-items: flex-start;
+    justify-content: flex-start; */
+}
+
+.dialogsTitle{
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+.dialogsItems{
+    margin-right: 20px;
+    max-width: 280px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid hotpink;
+}
+
+.dialog{
+    margin-bottom: 15px;
+    width: 250px;
+}
+.activedialog{
+    color: rgb(219, 142, 25);
+}
+
+.messages{
+    position: relative;
+    max-width: 880px;
+    width: 100%;
+}
+
+.message{
+    margin-bottom: 30px;
+}
