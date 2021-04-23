@@ -13,6 +13,7 @@ import Preloader from "./../common/Preloader";
 import { NavLink } from "react-router-dom";
 import { usersAPI } from "../../api/api";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+import { compose } from "redux";
 
 class UsersContainer extends React.Component {
   componentDidMount() {
@@ -95,16 +96,17 @@ let withRedirect = withAuthRedirect (UsersContainer);
 //   };
 // };
 
-export default connect(mapStateToProps, {
-  follow,
-  unfollow,
-
-  setCurrentPage,
-  // setUsers,
-  // setTotalUsersCount, 
-  // toggleIsFetching,
-  toggleFollowingProgress,
-  getUsers,
-  // getUsersThunkCreator,
+export default compose(
+  connect(mapStateToProps, {
+    follow,
+    unfollow,
   
-})(withRedirect);
+    setCurrentPage,
+    // setUsers,
+    // setTotalUsersCount, 
+    // toggleIsFetching,
+    toggleFollowingProgress,
+    getUsers,
+    // getUsersThunkCreator,
+  
+})(withRedirect))
