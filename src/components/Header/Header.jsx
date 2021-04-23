@@ -11,7 +11,9 @@ const Header = (props) => {
           src="https://yt3.ggpht.com/ytc/AAUvwnhcOYdTa8LLrCrXBvmGL2kd1pP1xiGLChGUaz4KGA=s48-c-k-c0x00ffffff-no-rj"
         ></img>
         <div className={s.loginBlock}>
-          {props.isAuth? props.login : <NavLink to={"/login"} className={s.loginLink}>
+          {props.isAuth
+          ? <div>{props.login} - <button onClick={props.logout}>Log out</button> </div>
+          : <NavLink to={"/login"} className={s.loginLink}>
             Login 
           </NavLink>}
           
