@@ -6,7 +6,7 @@ import {
   unfollow,
   setCurrentPage,
   toggleFollowingProgress,
-  getUsers,
+  requestUsers,
 } from "../../redux/users-reducer";
 import * as axios from "axios";
 import Preloader from "./../common/Preloader";
@@ -14,11 +14,12 @@ import { NavLink } from "react-router-dom";
 import { usersAPI } from "../../api/api";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
+import {getPageSize, getUsers, getTotalUsersCount, getCurrentPage, getIsFetching, getFollowingInProgress} from "../../redux/users-selectors"
 
 class UsersContainer extends React.Component {
   componentDidMount() {
 
-    this.props.getUsers(this.props.currentPage, this.props.pageSize);
+    this.props.requestUsers(this.props.currentPage, this.props.pageSize);
     // this.props.toggleIsFetching(true);
 
     // usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
@@ -29,7 +30,7 @@ class UsersContainer extends React.Component {
   }
 
   onPageChanged = (pageNumber) => {
-    this.props.getUsers(pageNumber, this.props.pageSize);
+    this.props.requestUsers(pageNumber, this.props.pageSize);
 
     // this.props.setCurrentPage(pageNumber);
     // this.props.toggleIsFetching(true);
@@ -59,42 +60,31 @@ class UsersContainer extends React.Component {
   }
 }
 
-let mapStateToProps = (state) => {
-  return {
-    users: state.usersPage.users,
-    pageSize: state.usersPage.pageSize,
-    totalUsersCount: state.usersPage.totalUsersCount,
-    currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching,
-    followingInProgress: state.usersPage.followingInProgress,
-  };
-};
-
-let withRedirect = withAuthRedirect (UsersContainer);
-
-
-// let mapDispatchToProps = (dispatch) => {
+// let mapStateToProps = (state) => {
 //   return {
-//     follow: (userId) => {
-//       dispatch(followAC(userId));
-//     },
-//     unfollow: (userId) => {
-//       dispatch(unfollowAC(userId));
-//     },
-//     setUsers: (users) => {
-//       dispatch(setUsersAC(users));
-//     },
-//     setCurrentPage: (pageNumber) => {
-//       dispatch(setCurrentPageAC(pageNumber));
-//     },
-//     setTotalUsersCount: (totalCount) => {
-//       dispatch(setUsersTotalCountAC(totalCount));
-//     },
-//     toggleIsFetching: (isFetching) => {
-//       dispatch(toggleIsFetchingAC(isFetching));
-//     }
+//     users: state.usersPage.users,
+//     pageSize: state.usersPage.pageSize,
+//     totalUsersCount: state.usersPage.totalUsersCount,
+//     currentPage: state.usersPage.currentPage,
+//     isFetching: state.usersPage.isFetching,
+//     followingInProgress: state.usersPage.followingInProgress,
 //   };
 // };
+
+let mapStateToProps = (state) => {
+  return {
+    users: getUsers(state),
+    // users: getUsers(state),
+    pageSize: getPageSize(state),
+    totalUsersCount: getTotalUsersCount(state),
+    currentPage: getCurrentPage(state),
+    isFetching: getIsFetching(state),
+    followingInProgress: getFollowingInProgress(state),
+  };
+};   
+
+
+let withRedirect = withAuthRedirect (UsersContainer);
 
 export default compose(
   connect(mapStateToProps, {
@@ -106,7 +96,7 @@ export default compose(
     // setTotalUsersCount, 
     // toggleIsFetching,
     toggleFollowingProgress,
-    getUsers,
+    requestUsers,
     // getUsersThunkCreator,
   
 })(withRedirect))
